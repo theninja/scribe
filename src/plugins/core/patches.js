@@ -1,39 +1,27 @@
-define([
-  './patches/commands/bold',
-  './patches/commands/indent',
-  './patches/commands/insert-html',
-  './patches/commands/insert-list',
-  './patches/commands/outdent',
-  './patches/commands/create-link',
-  './patches/events'
-], function (
-  boldCommand,
-  indentCommand,
-  insertHTMLCommand,
-  insertListCommands,
-  outdentCommand,
-  createLinkCommand,
+import boldCommand from './patches/commands/bold';
+import indentCommand from './patches/commands/indent';
+import insertHTMLCommand from './patches/commands/insert-html';
+import insertListCommands from './patches/commands/insert-list';
+import outdentCommand from './patches/commands/outdent';
+import createLinkCommand from './patches/commands/create-link';
+import * as events from './patches/events';
+
+/**
+ * Command patches browser inconsistencies. They do not perform core features
+ * of the editor, such as ensuring P elements are created when
+ * applying/unapplying commands — that is the job of the core commands.
+ */
+
+var commands = {
+  bold: boldCommand,
+  indent: indentCommand,
+  insertHTML: insertHTMLCommand,
+  insertList: insertListCommands,
+  outdent: outdentCommand,
+  createLink: createLinkCommand,
+};
+
+export {
+  commands,
   events
-) {
-
-  /**
-   * Command patches browser inconsistencies. They do not perform core features
-   * of the editor, such as ensuring P elements are created when
-   * applying/unapplying commands — that is the job of the core commands.
-   */
-
-  'use strict';
-
-  return {
-    commands: {
-      bold: boldCommand,
-      indent: indentCommand,
-      insertHTML: insertHTMLCommand,
-      insertList: insertListCommands,
-      outdent: outdentCommand,
-      createLink: createLinkCommand,
-    },
-    events: events
-  };
-
-});
+};

@@ -1,12 +1,4 @@
-require('node-amd-require')({
-  baseUrl: __dirname,
-  paths: {
-    'lodash-amd': '../../bower_components/lodash-amd',
-    'immutable': '../../bower_components/immutable'
-  }
-});
-
-var Mutations = require('../src/mutations');
+import * as Mutations from '../src/mutations';
 
 var chai = require('chai');
 var expect = chai.expect;

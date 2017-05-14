@@ -1,10 +1,9 @@
-define([], function() {
+var contentChanged = "scribe:content-changed";
+var legacyContentChanged = "content-changed";
+var destroy = "scribe:destroy";
 
-  'use strict';
-
-  return {
-    contentChanged: "scribe:content-changed",
-    legacyContentChanged: "content-changed",
-    destroy: "scribe:destroy"
-  };
-});
+export {
+  contentChanged,
+  legacyContentChanged,
+  destroy
+};

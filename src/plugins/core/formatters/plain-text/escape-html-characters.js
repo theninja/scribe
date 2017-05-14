@@ -1,4 +1,4 @@
-define('lodash-amd/modern/internal/baseToString',[], function() {
+const baseToString = (function() {
 
   /**
    * Converts `value` to a string if it is not one. An empty string is returned
@@ -16,9 +16,9 @@ define('lodash-amd/modern/internal/baseToString',[], function() {
   }
 
   return baseToString;
-});
+})();
 
-define('lodash-amd/modern/internal/escapeHtmlChar',[], function() {
+const escapeHtmlChar = (function() {
 
   /** Used to map characters to HTML entities. */
   var htmlEscapes = {
@@ -42,9 +42,9 @@ define('lodash-amd/modern/internal/escapeHtmlChar',[], function() {
   }
 
   return escapeHtmlChar;
-});
+})();
 
-define('lodash-amd/modern/string/escape',['../internal/baseToString', '../internal/escapeHtmlChar'], function(baseToString, escapeHtmlChar) {
+const escape = (function() {
 
   /** Used to match HTML entities and HTML characters. */
   var reUnescapedHtml = /[&<>"'`]/g,
@@ -91,21 +91,11 @@ define('lodash-amd/modern/string/escape',['../internal/baseToString', '../intern
   }
 
   return escape;
-});
+})();
 
 
-define([
-  'lodash-amd/modern/string/escape'
-], function (
-  escape
-) {
-
-  'use strict';
-
-  return function () {
-    return function (scribe) {
-      scribe.registerPlainTextFormatter(escape);
-    };
+export default function () {
+  return function (scribe) {
+    scribe.registerPlainTextFormatter(escape);
   };
-
-});
+};

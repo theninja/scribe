@@ -1,12 +1,4 @@
-require('node-amd-require')({
-  baseUrl: __dirname + "/../../src",
-  paths: {
-    'lodash-amd': '../../bower_components/lodash-amd',
-    'immutable': '../../bower_components/immutable'
-  }
-});
-
-var keystrokes = require('../src/keystrokes');
+import * as keystrokes from '../src/keystrokes';
 
 
 var chai = require('chai');

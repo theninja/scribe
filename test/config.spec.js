@@ -1,14 +1,4 @@
-
-
-require('node-amd-require')({
-  baseUrl: __dirname,
-  paths: {
-    'lodash-amd': '../../bower_components/lodash-amd',
-    'immutable': '../../bower_components/immutable'
-  }
-});
-
-var config = require('../src/config');
+import * as config from '../src/config';
 
 var chai = require('chai');
 var expect = chai.expect;

@@ -1,8 +1,14 @@
+var resolve = require('rollup-plugin-node-resolve');
+var commonjs  = require('rollup-plugin-commonjs');
+var uglify = require('rollup-plugin-uglify');
+var minify = require('uglify-js-harmony').minify;
+
+
 module.exports = function(grunt) {
 
   // Add the grunt-mocha-test tasks.
   grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-rollup');
 
   grunt.initConfig({
     // Configure a mochaTest task
@@ -10,38 +16,53 @@ module.exports = function(grunt) {
       test: {
         options: {
           reporter: 'spec',
+          require: 'babel-core/register'
         },
         src: ['test/**/*.spec.js']
       }
     },
   });
 
-  function requireConfiguration(optimize, outputFilename) {
+  function rollupConfiguration(optimize, outputFilename, format) {
     return {
-      compile: {
-        options: {
-          baseUrl: "src",
-          name: "scribe",
-          paths: {
-            'lodash-amd': '../bower_components/lodash-amd',
-            'immutable': '../bower_components/immutable/dist/immutable'
-          },
-          optimize: optimize,
-          preserveLicenseComments: false,
-          generateSourceMaps: true,
-          out: "build/" + outputFilename
-        }
+      options: {
+        format: format,
+        sourceMap: true,
+        moduleName: 'scribe',
+        plugins: [
+          resolve({
+            jsnext: true,
+            next: true
+          }),
+          commonjs(),
+          (optimize && uglify({}, minify))
+        ]
+      },
+      main: {
+        dest: 'build/' + outputFilename,
+        src: 'src/scribe.js'
       }
     }
   }
 
-  grunt.registerTask('build', 'Build output files', function() {
-    grunt.config('requirejs', requireConfiguration('uglify2', 'scribe.min.js'));
-    grunt.task.run('requirejs');
+  grunt.registerTask('build:iife', function() {
+    grunt.config('rollup', rollupConfiguration(true, 'scribe.umd.min.js', 'iife'));
+    grunt.task.run('rollup');
 
-    grunt.config('requirejs', requireConfiguration('none', 'scribe.js'));
-    grunt.task.run('requirejs');
+    grunt.config('rollup', rollupConfiguration(false, 'scribe.umd.js', 'iife'));
+    grunt.task.run('rollup');
   });
+
+  grunt.registerTask('build:umd', function() {
+    grunt.config('rollup', rollupConfiguration(true, 'scribe.min.js', 'umd'));
+    grunt.task.run('rollup');
+
+    grunt.config('rollup', rollupConfiguration(false, 'scribe.js', 'umd'));
+    grunt.task.run('rollup');
+  });
+
+  grunt.registerTask('build', ['build:iife', 'build:umd']);
+
 
   grunt.registerTask('test', ['mochaTest']);
 

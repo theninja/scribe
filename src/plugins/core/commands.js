@@ -1,12 +1,12 @@
-define([
-  './commands/indent',
-  './commands/insert-list',
-  './commands/outdent',
-  './commands/redo',
-  './commands/subscript',
-  './commands/superscript',
-  './commands/undo'
-], function (
+import indent from './commands/indent';
+import insertList from './commands/insert-list';
+import outdent from './commands/outdent';
+import redo from './commands/redo';
+import subscript from './commands/subscript';
+import superscript from './commands/superscript';
+import undo from './commands/undo';
+
+export {
   indent,
   insertList,
   outdent,
@@ -14,18 +14,4 @@ define([
   subscript,
   superscript,
   undo
-) {
-
-  'use strict';
-
-  return {
-    indent: indent,
-    insertList: insertList,
-    outdent: outdent,
-    redo: redo,
-    subscript: subscript,
-    superscript: superscript,
-    undo: undo
-  };
-
-});
+};

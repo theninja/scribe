@@ -1,13 +1,7 @@
-define(function () {
+export default function () {
+  return function (scribe) {
+    var superscriptCommand = new scribe.api.Command('superscript');
 
-  'use strict';
-
-  return function () {
-    return function (scribe) {
-      var superscriptCommand = new scribe.api.Command('superscript');
-
-      scribe.commands.superscript = superscriptCommand;
-    };
+    scribe.commands.superscript = superscriptCommand;
   };
-
-});
+};

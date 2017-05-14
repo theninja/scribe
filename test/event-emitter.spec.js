@@ -1,14 +1,7 @@
-require('node-amd-require')({
-  baseUrl: __dirname,
-  paths: {
-    'lodash-amd': '../../bower_components/lodash-amd',
-    'immutable': '../../bower_components/immutable'
-  }
-});
+import EventEmitter from '../src/event-emitter';
 
 var chai = require('chai');
 var sinon = require('sinon');
-var EventEmitter = require('../src/event-emitter');
 var expect = chai.expect;
 
 var emitter;

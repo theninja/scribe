@@ -1,13 +1,7 @@
-define(function () {
+export default function () {
+  return function (scribe) {
+    var subscriptCommand = new scribe.api.Command('subscript');
 
-  'use strict';
-
-  return function () {
-    return function (scribe) {
-      var subscriptCommand = new scribe.api.Command('subscript');
-
-      scribe.commands.subscript = subscriptCommand;
-    };
+    scribe.commands.subscript = subscriptCommand;
   };
-
-});
+};
