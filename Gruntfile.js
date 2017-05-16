@@ -30,11 +30,12 @@ module.exports = function(grunt) {
         sourceMap: true,
         moduleName: 'scribe',
         plugins: [
-          resolve({
-            jsnext: true,
-            next: true
-          }),
-          commonjs(),
+          {
+            resolveId(importee, importer) {
+              if (importee === 'immutable')
+                return 'node_modules/immutable/src/Immutable.js';
+            }
+          },
           (optimize && uglify({}, minify))
         ]
       },

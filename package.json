@@ -5,7 +5,7 @@
   "main": "build/scribe.umd.js",
   "module": "src/scribe.js",
   "dependencies": {
-    "immutable": "~3.8.1"
+    "immutable": "https://github.com/facebook/immutable-js/tarball/fecc9fc7bdd109210434c534b95c4288a057983f"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

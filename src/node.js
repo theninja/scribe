@@ -1,6 +1,6 @@
 import inlineElementNames from './constants/inline-element-names';
 import blockElementNames from './constants/block-element-names';
-import Immutable from 'immutable';
+import { List } from 'immutable';
 
 function isBlockElement(node) {
   return blockElementNames.includes(node.nodeName);
@@ -111,7 +111,7 @@ function getAncestor(node, rootElement, nodeFilter) {
 }
 
 function nextSiblings(node) {
-  var all = Immutable.List();
+  var all = List();
   while (node = node.nextSibling) {
     all = all.push(node);
   }
@@ -147,13 +147,13 @@ function removeChromeArtifacts(parentElement) {
     return window.getComputedStyle(element).lineHeight === parentStyle.lineHeight;
   }
 
-  var nodes = Immutable.List(parentElement.querySelectorAll(inlineElementNames
+  var nodes = List(parentElement.querySelectorAll(inlineElementNames
     .map(function(elName) { return elName + '[style*="line-height"]' })
     .join(',')
     ));
   nodes = nodes.filter(isInlineWithStyle.bind(null, window.getComputedStyle(parentElement)));
 
-  var emptySpans = Immutable.List();
+  var emptySpans = List();
 
   nodes.forEach(function(node) {
     node.style.lineHeight = null;

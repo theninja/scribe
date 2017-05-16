@@ -1,5 +1,5 @@
 import * as nodeHelpers from '../../../../node';
-import Immutable from 'immutable';
+import { Set } from 'immutable';
 
 /**
  * Chrome and Firefox: All elements need to contain either text or a `<br>` to
@@ -8,7 +8,7 @@ import Immutable from 'immutable';
  */
 
 // http://www.w3.org/TR/html-markup/syntax.html#syntax-elements
-var html5VoidElements = Immutable.Set.of('AREA', 'BASE', 'BR', 'COL', 'COMMAND', 'EMBED', 'HR', 'IMG', 'INPUT', 'KEYGEN', 'LINK', 'META', 'PARAM', 'SOURCE', 'TRACK', 'WBR');
+var html5VoidElements = Set.of('AREA', 'BASE', 'BR', 'COL', 'COMMAND', 'EMBED', 'HR', 'IMG', 'INPUT', 'KEYGEN', 'LINK', 'META', 'PARAM', 'SOURCE', 'TRACK', 'WBR');
 
 function parentHasNoTextContent(node) {
   if (nodeHelpers.isCaretPositionNode(node)) {

@@ -8,7 +8,7 @@ import buildTransactionManager from './transaction-manager';
 import UndoManager from './undo-manager';
 import EventEmitter from './event-emitter';
 import * as nodeHelpers from './node';
-import Immutable from 'immutable';
+import { OrderedSet, List } from 'immutable';
 import * as config from './config';
 import * as eventNames from './events';
 
@@ -25,8 +25,6 @@ function Scribe(el, options) {
   this._htmlFormatterFactory = new HTMLFormatterFactory();
 
   this.api = new Api(this);
-
-  this.Immutable = Immutable;
 
   var TransactionManager = buildTransactionManager(this);
   this.transactionManager = new TransactionManager();
@@ -63,25 +61,25 @@ function Scribe(el, options) {
   /**
    * Core Plugins
    */
-  var corePlugins = Immutable.OrderedSet(this.options.defaultPlugins)
+  var corePlugins = OrderedSet(this.options.defaultPlugins)
     .sort(config.sortByPlugin('setRootPElement')) // Ensure `setRootPElement` is always loaded first
     .filter(config.filterByBlockLevelMode(this.allowsBlockElements()))
     .map(function (plugin) { return plugins[plugin]; });
 
   // Formatters
-  var defaultFormatters = Immutable.List(this.options.defaultFormatters)
+  var defaultFormatters = List(this.options.defaultFormatters)
   .filter(function (formatter) { return !!formatters[formatter]; })
   .map(function (formatter) { return formatters[formatter]; });
 
   // Patches
 
-  var defaultPatches = Immutable.List.of(
+  var defaultPatches = List.of(
     patches.events
   );
 
-  var defaultCommandPatches = Immutable.List(this.options.defaultCommandPatches).map(function(patch) { return patches.commands[patch]; });
+  var defaultCommandPatches = List(this.options.defaultCommandPatches).map(function(patch) { return patches.commands[patch]; });
 
-  var defaultCommands = Immutable.List.of(
+  var defaultCommands = List.of(
     'indent',
     'insertList',
     'outdent',
@@ -91,7 +89,7 @@ function Scribe(el, options) {
     'undo'
   ).map(function(command) { return commands[command]; });
 
-  var allPlugins = Immutable.List().concat(
+  var allPlugins = List().concat(
     corePlugins,
     defaultFormatters,
     defaultPatches,
@@ -283,7 +281,7 @@ Scribe.prototype.destroy = function (options) {
 
 // TODO: abstract
 function FormatterFactory() {
-  this.formatters = Immutable.List();
+  this.formatters = List();
 }
 
 FormatterFactory.prototype.format = function (html) {
@@ -301,10 +299,10 @@ function HTMLFormatterFactory() {
   this.formatters = {
     // Configurable sanitization of the HTML, e.g. converting/filter/removing
     // elements
-    sanitize: Immutable.List(),
+    sanitize: List(),
     // Normalize content to ensure it is ready for interaction
-    normalize: Immutable.List(),
-    'export': Immutable.List()
+    normalize: List(),
+    'export': List()
   };
 }
 

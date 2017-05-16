@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import { List } from 'immutable';
 
 /**
  * Chrome and Firefox: Upon pressing backspace inside of a P, the
@@ -25,7 +25,7 @@ export default function () {
     function wrapChildNodes(parentNode) {
       var index = 0;
 
-      Immutable.List(parentNode.childNodes)
+      List(parentNode.childNodes)
         .filterNot(function(node) {
           return nodeHelpers.isWhitespaceOnlyTextNode(Node, node);
         })

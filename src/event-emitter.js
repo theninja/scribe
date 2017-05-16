@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import { Set } from 'immutable';
 
 // TODO: once
 // TODO: unit test
@@ -8,13 +8,13 @@ function EventEmitter() {
 }
 
 EventEmitter.prototype.on = function (eventName, fn) {
-  var listeners = this._listeners[eventName] || Immutable.Set();
+  var listeners = this._listeners[eventName] || Set();
 
   this._listeners[eventName] = listeners.add(fn);
 };
 
 EventEmitter.prototype.off = function (eventName, fn) {
-  var listeners = this._listeners[eventName] || Immutable.Set();
+  var listeners = this._listeners[eventName] || Set();
   if (fn) {
     this._listeners[eventName] = listeners.delete(fn);
   } else {
@@ -28,7 +28,7 @@ EventEmitter.prototype.trigger = function (eventName, args) {
   var events = eventName.split(':');
   while(!!events.length){
     var currentEvent = events.join(':');
-    var listeners = this._listeners[currentEvent] || Immutable.Set();
+    var listeners = this._listeners[currentEvent] || Set();
     //trigger handles
     listeners.forEach(function (listener) {
       listener.apply(null, args);

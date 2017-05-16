@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import { List } from 'immutable';
 
 /**
  * If the paragraphs option is set to true, then when the list is
@@ -71,7 +71,7 @@ export default function () {
 
             // We can't query for list items in the selection so we loop
             // through them all and find the intersection ourselves.
-            var selectedListItemElements = Immutable.List(listNode.querySelectorAll('li'))
+            var selectedListItemElements = List(listNode.querySelectorAll('li'))
               .filter(function (listItemElement) {
                 return range.intersectsNode(listItemElement);
               });

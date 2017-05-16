@@ -1,7 +1,7 @@
-import Immutable from 'immutable';
+import { List } from 'immutable';
 
 function UndoManager(limit, undoScopeHost) {
-  this._stack = Immutable.List();
+  this._stack = List();
   this._limit = limit;
   this._fireEvent = typeof CustomEvent != 'undefined' && undoScopeHost && undoScopeHost.dispatchEvent;
   this._ush = undoScopeHost;
@@ -27,7 +27,7 @@ UndoManager.prototype.transact = function (transaction, merge) {
     this._stack = this._stack.shift().unshift(transactions);
   }
   else {
-    transactions = Immutable.List.of(transaction);
+    transactions = List.of(transaction);
     this._stack = this._stack.unshift(transactions);
     this.length++;
 

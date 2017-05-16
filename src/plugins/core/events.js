@@ -1,5 +1,5 @@
 import observeDomChanges from '../../dom-observer';
-import Immutable from 'immutable';
+import { List } from 'immutable';
 
 export default function () {
   return function (scribe) {
@@ -183,7 +183,7 @@ export default function () {
       if (event.clipboardData && event.clipboardData.types.length > 0) {
         event.preventDefault();
 
-        if (Immutable.List(event.clipboardData.types).includes('text/html')) {
+        if (List(event.clipboardData.types).includes('text/html')) {
           scribe.insertHTML(event.clipboardData.getData('text/html'));
         } else {
           scribe.insertPlainText(event.clipboardData.getData('text/plain'));

@@ -1,4 +1,4 @@
-import immutable from 'immutable';
+import { fromJS } from 'immutable';
 
 var blockModePlugins = [
   'setRootPElement',
@@ -36,8 +36,8 @@ defaultOptions = {
 
 
 function defaults(options, defaultOptions) {
-  var optionsCopy = immutable.fromJS(options);
-  var defaultsCopy = immutable.fromJS(defaultOptions);
+  var optionsCopy = fromJS(options);
+  var defaultsCopy = fromJS(defaultOptions);
   var mergedOptions = defaultsCopy.merge(optionsCopy);
   return mergedOptions.toJS();
 }
